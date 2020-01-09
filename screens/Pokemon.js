@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, ActivityIndicator, Image } from "react-native";
 import Constants from "expo-constants";
-import "regenerator-runtime";
 import { Button } from "react-native-paper";
 
 export default function Pokemon(props) {

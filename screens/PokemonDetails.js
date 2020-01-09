@@ -1,7 +1,6 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import Constants from "expo-constants";
-import "regenerator-runtime";
 
 export default function PokemonDetails(props) {
   // we have to get details from navigation params, not props

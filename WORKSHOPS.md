@@ -15,14 +15,13 @@
 import * as React from "react";
 import { Text, View, StyleSheet, ActivityIndicator, Image } from "react-native";
 import Constants from "expo-constants";
-import "regenerator-runtime";
 
 export default class App extends React.Component {
   state = {
     loading: true,
     error: false,
     pokemonName: null,
-    pokemonImage: null
+    pokemonImage: null,
   };
 
   fetchPokemonData = async () => {
@@ -37,7 +36,7 @@ export default class App extends React.Component {
       this.setState({
         loading: false,
         pokemonName: name,
-        pokemonImage: img
+        pokemonImage: img,
       });
     } catch (err) {
       this.setState({ loading: false, error: true });
@@ -80,25 +79,18 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: Constants.statusBarHeight
+    paddingTop: Constants.statusBarHeight,
   },
   text: {
     fontSize: 30,
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
   image: {
     height: 200,
-    width: 200
-  }
+    width: 200,
+  },
 });
-```
-
-In `package.json`, add the newest version of `regenerator-runtime`.
-
-```js
-// package.json
-"regenerator-runtime": "0.13.3"
 ```
 
 6. This app looks kinda static – it's about time to add some navigation. Move the code from `App.js` to a new file `screens/Pokemon.js`, and change `App.js` to:
@@ -122,7 +114,6 @@ export default class App extends React.Component {
 import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import Constants from "expo-constants";
-import "regenerator-runtime";
 
 export default class PokemonDetails extends React.Component {
   render() {
@@ -151,13 +142,13 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: Constants.statusBarHeight
+    paddingTop: Constants.statusBarHeight,
   },
   text: {
     fontSize: 30,
     fontWeight: "bold",
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 });
 ```
 
@@ -181,11 +172,11 @@ import { createStackNavigator } from "react-navigation-stack";
 
 const FavPokemonStack = createStackNavigator({
   FavPokemon: {
-    screen: Pokemon
+    screen: Pokemon,
   },
   FavPokemonDetails: {
-    screen: PokemonDetails
-  }
+    screen: PokemonDetails,
+  },
 });
 
 export default createAppContainer(FavPokemonStack);
@@ -212,7 +203,7 @@ fetchPokemonData = async () => {
       loading: false,
       pokemonName: name,
       pokemonImage: img,
-      pokemonDetails: details
+      pokemonDetails: details,
     });
   } catch (err) {
     this.setState({ loading: false, error: true });
@@ -230,7 +221,7 @@ return (
       onPress={() => {
         // // add button which navigates to the new screen with saved details
         this.props.navigation.navigate("FavPokemonDetails", {
-          details: this.state.pokemonDetails
+          details: this.state.pokemonDetails,
         });
       }}
     >
@@ -256,7 +247,7 @@ import { createBottomTabNavigator } from "react-navigation-tabs";
 //...
 
 const AppNavigator = createBottomTabNavigator({
-  FavPokemon: FavPokemonStack
+  FavPokemon: FavPokemonStack,
 });
 
 // we can remove unnecessary App Component
@@ -287,13 +278,13 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: Constants.statusBarHeight
+    paddingTop: Constants.statusBarHeight,
   },
   text: {
     fontSize: 30,
     fontWeight: "bold",
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 });
 ```
 
@@ -303,7 +294,7 @@ import PokemonList from "./screens/PokemonList";
 //...
 const AppNavigator = createBottomTabNavigator({
   FavPokemon: FavPokemonStack,
-  Pokemons: PokemonList
+  Pokemons: PokemonList,
 });
 ```
 
@@ -316,7 +307,7 @@ import { Ionicons } from "@expo/vector-icons";
 const AppNavigator = createBottomTabNavigator(
   {
     FavPokemon: FavPokemonStack,
-    Pokemons: PokemonList
+    Pokemons: PokemonList,
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -329,16 +320,16 @@ const AppNavigator = createBottomTabNavigator(
           iconName = `ios-bug`;
         }
         return <Ionicons name={iconName} size={25} color={tintColor} />;
-      }
+      },
     }),
     tabBarOptions: {
       style: {
-        backgroundColor: "red"
+        backgroundColor: "red",
       },
       activeTintColor: "white",
-      inactiveTintColor: "black"
-    }
-  }
+      inactiveTintColor: "black",
+    },
+  },
 );
 ```
 
@@ -351,7 +342,7 @@ import {
   View,
   StyleSheet,
   ActivityIndicator,
-  FlatList
+  FlatList,
 } from "react-native";
 import Constants from "expo-constants";
 
@@ -359,19 +350,19 @@ export default class PokemonList extends React.Component {
   state = {
     loading: true,
     error: false,
-    pokemons: []
+    pokemons: [],
   };
 
   fetchPokemons = async () => {
     try {
       const response = await fetch(
-        "https://pokeapi.co/api/v2/pokemon/?limit=20"
+        "https://pokeapi.co/api/v2/pokemon/?limit=20",
       ); // 20 makes most sense, but try out more results to see RN performance!
       const json = await response.json();
       const { results } = json;
       this.setState({
         loading: false,
-        pokemons: results
+        pokemons: results,
       });
     } catch (err) {
       this.setState({ loading: false, error: true });
@@ -421,17 +412,17 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: Constants.statusBarHeight
+    paddingTop: Constants.statusBarHeight,
   },
   text: {
     fontSize: 30,
     fontWeight: "bold",
     textAlign: "center",
-    margin: 5
+    margin: 5,
   },
   listContainer: {
-    backgroundColor: "white"
-  }
+    backgroundColor: "white",
+  },
 });
 ```
 
@@ -525,21 +516,21 @@ const PokemonListStack = createStackNavigator(
   {
     PokemonList: {
       screen: PokemonList,
-      navigationOptions: stackNavigationOptions
+      navigationOptions: stackNavigationOptions,
     },
     Pokemon: {
       screen: Pokemon,
-      navigationOptions: stackNavigationOptions
+      navigationOptions: stackNavigationOptions,
     },
     PokemonDetails: {
       screen: PokemonDetails,
-      navigationOptions: stackNavigationOptions
-    }
+      navigationOptions: stackNavigationOptions,
+    },
   },
   {
     headerLayoutPreset: "center",
-    initialRouteName: "PokemonList"
-  }
+    initialRouteName: "PokemonList",
+  },
 );
 ```
 
@@ -553,7 +544,7 @@ renderPokemon = ({ item }) => {
       color="red"
       onPress={() => {
         this.props.navigation.navigate("Pokemon", {
-          url: item.url
+          url: item.url,
         });
       }}
     >
